@@ -1,1 +1,212 @@
-hello world
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script>
+            $(document).ready(function(){
+                              $("#arcsightESM").hide();
+                              $("#splunk").hide();
+                              $("#csv").hide();
+                              
+                              $("#select").on("change",function() {
+                                              var showid = this.value;
+                                              if(showid=="arcsightesm"){
+                                              $("#arcsightESM").show();
+                                              $("#splunk").hide();
+                                              $("#csv").hide();
+                                              }else{
+                                              if(showid=="splunk"){
+                                              $("#arcsightESM").hide();
+                                              $("#splunk").show();
+                                              $("#csv").hide();
+                                              }else{
+                                              if(showid=="csv"){
+                                              $("#arcsightESM").hide();
+                                              $("#splunk").hide();
+                                              $("#csv").show();
+                                              }else{
+                                              $("#arcsightESM").hide();
+                                              $("#splunk").hide();
+                                              $("#csv").hide();
+                                              }
+                                              }
+                                              }
+                                              });
+                              
+                              $("form :input").blur(function(){
+                                                    var NotNull=true;
+                                                    $("form :input.required").each(function(){
+                                                                                   if((!$(this).val())&(!$(this).is(":hidden"))) {
+                                                                                   NotNull=false;
+                                                                                   }
+                                                                                   });
+                                                    if(NotNull==true){
+                                                    $('#arcsightESMSave').prop("disabled",false);
+                                                    $('#splunkSave').prop("disabled",false);
+                                                    $('#csvSave').prop("disabled",false);
+                                                    } else{
+                                                    $('#arcsightESMSave').prop("disabled",true);
+                                                    $('#splunkSave').prop("disabled",true);
+                                                    $('#csvSave').prop("disabled",true);
+                                                    }
+                                                    });
+                              
+                              $('#splunkhost').blur(function(){
+                                                    if($(this).val()=="localhost"){
+                                                    $('#splunkportdiv').hide();
+                                                    $('#splunkuserdiv').hide();
+                                                    $('#splunkauthdiv').hide();
+                                                    $('#splunkpassworddiv').hide();
+                                                    
+                                                    }else{
+                                                    $('#splunkportdiv').show();
+                                                    $('#splunkuserdiv').show();
+                                                    $('#splunkauthdiv').show();
+                                                    $('#splunkpassworddiv').show();
+                                                    }
+                                                    })
+                              
+                              });
+            </script>
+    </head>
+    <body>
+        
+        <b>Please select destination  </b>
+        <select id="select" onChange="changeForm(this.value)">
+            <option value="noselection">No Selection</option>
+            <option value="arcsightesm">Arcsight ESM</option>
+            <option value="brointel">Bro intel</option>
+            <option value="cef">CEF</option>
+            <option value="csv">CSV</option>
+            <option value="carbonblack">Carbon Black</option>
+            <option value="clouderaimpala">Cloudera impala</option>
+            <option value="nitro">Nitro</option>
+            <option value="paloaltonetworks">Paloalto networks</option>
+            <option value="qradar">Qradar</option>
+            <option value="qradarapi">Qradar api</option>
+            <option value="splunk">Splunk</option>
+            <option value="syslog">Sys log</option>
+        </select>
+        
+        <div id="arcsightESM">ArcsightESM
+            <form id="arcsightESMForm" method="post">
+                <div class="int">
+                    <label for="name">Name*</label>
+                    <input type="text" id="name" class="required" placeholder="Name"/>
+                </div>
+                <div class="int">
+                    <label for="version">Version</label>
+                    <select><option value="6.5">6.5</option><option value="6.0">6.0</option></select>
+                </div>
+                <div class="int">
+                    <label for="host">Host*</label>
+                    <input type="text" id="host" class="required" placeholder="Host"/>
+                </div>
+                <div class="int">
+                    <label for="port">Port*</label>
+                    <input type="text" id="port" class="required" value="8443"/>
+                </div>
+                <div class="int">
+                    <label for="user">User*</label>
+                    <input type="text" id="user" class="required" placeholder="User"/>
+                </div>
+                <div class="int">
+                    <label for="password">Password*</label>
+                    <input type="password" id="password" class="required" placeholder="Password"/>
+                </div>
+                <div class="int">
+                    <label for="sysloghost">Syslog Host</label>
+                    <input type="text" id="sysloghost" placeholder="Syslog Host"/>
+                </div>
+                <div class="int">
+                    <label for="syslogport">Syslog port</label>
+                    <input type="text" id="syslogport" value="514"/>
+                </div>
+                <div class="int">
+                    <label for="syslogfacility">Syslog Facility</label>
+                    <input type="text" id="syslogfacility" value="local0"/>
+                </div>
+                <div class="int">  
+                    <label for="filter">Filter?</label>  
+                    <textarea id="filter"></textarea>  
+                </div> 
+                * is required field
+                <div class="btn">  
+                    <input type="submit" id="arcsightESMSave" disabled="ture" value="Save"/>    
+                </div>  
+            </form>
+        </div>
+        <div id="splunk">
+            <form id="splunkForm" method="post">
+                <div class="int">  
+                    <label for="name">Name*</label>  
+                    <input type="text" id="name" class="required" placeholder="Name"/>  
+                </div>  
+                <div class="int">  
+                    <label for="type">Version</label>  
+                    <select><option value="6.2">6.2</option></select>  
+                </div> 
+                <div class="int">  
+                    <label for="version">Integration type</label>  
+                    <select><option value="app">app</option></select>  
+                </div> 
+                <div class="int">  
+                    <label for="splunkhost">Host*</label>  
+                    <input type="text" id="splunkhost" class="required" value="localhost"/>  
+                </div> 
+                <div class="int" id="splunkportdiv" style="display:none">  
+                    <label for="splunkport">SSH Port*</label>  
+                    <input type="text" id="splunkport" class="required" value="22"/>  
+                </div> 
+                <div class="int" id="splunkuserdiv" style="display:none">  
+                    <label for="splunkuser">SSH User*</label>  
+                    <input type="text" id="splunkuser" class="required" placeholder="SSH user"/>  
+                </div> 
+                <div class="int" id="splunkauthdiv" style="display:none">  
+                    <label for="splunkauth">SSH auth</label>  
+                    <select><option value="password">password</option></select>  
+                </div> 
+                <div class="int" id="splunkpassworddiv" style="display:none">  
+                    <label for="password">SSH Password*</label>  
+                    <input type="password" id="password" class="required" placeholder="SSH password"/>  
+                </div> 
+                <div class="int">  
+                    <label for="home">Splunk Home*</label>  
+                    <input type="text" id="home" class="required" value="/opt/splunk"/>  
+                </div> 
+                
+                <div class="int">  
+                    <label for="filter">Filter?</label>  
+                    <textarea id="filter"></textarea> 
+                </div> 
+                * is required field
+                <div class="btn">  
+                    <input type="submit" id="splunkSave"  disabled="ture" value="Save"/>    
+                </div>  
+            </form>
+        </div>
+        <div id="csv">
+            <form id="csvForm" method="post">
+                <div class="int">  
+                    <label for="name">Name*</label>  
+                    <input type="text" id="name" class="required" placeholder="Name"/>  
+                </div>  
+                
+                <div class="int">  
+                    <label for="directory">Directory</label>  
+                    <input type="text" id="host" value="/tmp"/>  
+                </div> 
+                <div class="int">  
+                    <label for="filter">Filter?</label> 
+                    <textarea id="filter"></textarea>              
+                </div> 
+                * is required field
+                <div class="btn">  
+                    <input type="submit" id="csvSave"  disabled="ture" value="Save"/>    
+                </div>  
+            </form>
+        </div>
+        
+        
+    </body>
+</html>
