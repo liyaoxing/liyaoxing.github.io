@@ -1,8 +1,12 @@
 <!doctype html>
-<html>
+<html lang="en">
     <head>
-        <script src='https://cdn.firebase.com/v0/firebase.js'></script>
-        <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+        <script src='https://cdn.firebase.com/v0/firebase.js'></script>        
         <style>
         #messagesDiv
         {
@@ -24,13 +28,14 @@
         margin: 10px 0;
         }
         </style>
+        <title>Chat Anywhere with Yaoxing</title>
         </head>
         <body>
-        <div id='messagesDiv'>
+        <div id='messagesDiv' class="container">
         </div>
-        <div class="fm">
-        <input type='text' id='nameInput' placeholder='Name'>
-        <input type='text' id='messageInput' placeholder='Message'>
+        <div class="container">
+        <input class="col-sm-2" type='text' id='nameInput' placeholder='Name'>
+        <input class="col-sm-10" type='text' id='messageInput' placeholder='Message'>
         </div>
         <script>
         var myDataRef = new Firebase('https://burning-fire-988.firebaseIO.com/');
